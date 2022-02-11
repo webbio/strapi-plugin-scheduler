@@ -1,0 +1,30 @@
+{
+  "name": "scheduler",
+  "version": "0.0.0",
+  "description": "This is the description of the plugin.",
+  "strapi": {
+    "name": "scheduler",
+    "description": "A plugin to publish or depublish articles in the future",
+    "kind": "plugin"
+  },
+  "dependencies": {},
+  "author": {
+    "name": "Webbio"
+  },
+  "maintainers": [
+    {
+      "name": "Webbio"
+    }
+  ],
+  "engines": {
+    "node": ">=12.x. <=16.x.x",
+    "npm": ">=6.0.0"
+  },
+    "keywords": [
+    "strapi",
+    "plugin",
+    "publish",
+    "schedule"
+  ],
+  "license": "MIT"
+}

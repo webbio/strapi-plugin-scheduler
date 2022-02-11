@@ -1,0 +1,4 @@
+{
+  "Settings.scheduler.success": "Post has been scheduled",
+  "Settings.scheduler.alreadyExist": "This locale already exists"
+}
