@@ -1,5 +1,5 @@
 {
-  "name": "scheduler",
+  "name": "@webbio/scheduler",
   "version": "0.1.0",
   "description": "A plugin to publish or depublish articles in the future",
   "strapi": {
