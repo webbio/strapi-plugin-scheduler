@@ -1,7 +1,7 @@
 {
   "name": "scheduler",
-  "version": "0.0.0",
-  "description": "This is the description of the plugin.",
+  "version": "0.1.0",
+  "description": "A plugin to publish or depublish articles in the future",
   "strapi": {
     "name": "scheduler",
     "description": "A plugin to publish or depublish articles in the future",

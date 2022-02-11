@@ -1,7 +1,7 @@
 # Strapi plugin scheduler
 
 This plugin allows you to publish and depublish collection types in the future. 
-There are a couple of steps necessary to get the plugin up and running but they will be explained down below. This plugin is in early development so changes will happen in the future.
+There are a couple of steps necessary to get the plugin up and running but they will be explained down below.
 
 # Installation
 
