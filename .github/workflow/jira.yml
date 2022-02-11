@@ -1,0 +1,25 @@
+name: JIRA Issue Code Check
+
+on:
+  pull_request:
+    branches:
+      - develop
+jobs:
+  check-jira-issue-code:
+    if: |
+      !startsWith(github.head_ref, 'dependabot/') &&
+      github.base_ref != 'release' &&
+      github.base_ref != 'master' &&
+      github.base_ref != 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: JIRA login
+        uses: atlassian/gajira-login@master
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      - name: Find JIRA issue code in branch name
+        uses: atlassian/gajira-find-issue-key@master
+        with:
+          string: ${{ github.head_ref }}, ${{ github.event.pull_request.title  }}, ${{ github.event.pull_request.body }}
