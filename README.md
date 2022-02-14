@@ -37,7 +37,7 @@ module.exports = ({ env }) => ({
 
 Now when you run your application, you will see some information is added to the sidebar. You can choose a date and time to publish or depublish your article.
 
-<img src="./Asset/showcase.png" width="200">
+<img src="./assets/showcase.png" width="200">
 
 
 **Future plans**
