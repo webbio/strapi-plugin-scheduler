@@ -5,14 +5,13 @@ There are a couple of steps necessary to get the plugin up and running but they 
 
 # Installation
 
-1. To install the plugin run `npm i @webbio/strapi-scheduler-plugin` or `yarn add @webbio/strapi-scheduler-plugin`.
+1. To install the plugin run `npm i @webbio/strapi-plugin-scheduler` or `yarn add @webbio/strapi-plugin-scheduler`.
 
 2. After the plugin is installed, add the plugin to the plugin.js file in your config folder.
 
 ```
 scheduler: {
     enabled: true,
-    resolve: "./src/plugins/scheduler",
     config: {
       model: "scheduler",
     },
@@ -22,7 +21,7 @@ scheduler: {
 3.  Add the cron task to the server.js file in your config folder.
 
 ```
-const cronTasks = require("../src/plugins/scheduler/cron-task");
+const cronTasks = require("@webbio/strapi-plugin-scheduler/cron-task");
 
 module.exports = ({ env }) => ({
   host: env('HOST', '0.0.0.0'),
