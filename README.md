@@ -41,4 +41,4 @@ Now when you run your application, you will see some information is added to the
 
 
 **Future plans**
-- TBAa
+- TBA
