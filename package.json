@@ -20,6 +20,9 @@
     "type": "git",
     "url": "git+https://github.com/webbio/strapi-plugin-scheduler.git"
   },
+  "peerDependencies": {
+    "@strapi/strapi": "^4.0.0"
+  },
   "engines": {
     "node": ">=12.x. <=16.x.x",
     "npm": ">=6.0.0"
