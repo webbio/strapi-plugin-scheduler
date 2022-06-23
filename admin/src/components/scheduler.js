@@ -3,7 +3,6 @@ import { Box, Stack } from '@strapi/design-system';
 import { Divider } from '@strapi/design-system/Divider';
 import { Typography } from '@strapi/design-system/Typography';
 import ScheduledPublish from './publish';
-import DePublishScheduler from './depublish';
 
 const scheduledPublish = () => {
   return (
@@ -26,12 +25,7 @@ const scheduledPublish = () => {
         <Divider />
       </Box>
       <Stack vertical size={2}>
-        <div>
-          <ScheduledPublish />
-        </div>
-        <div>
-          <DePublishScheduler />
-        </div>
+        <ScheduledPublish />
       </Stack>
     </Box>
   );
