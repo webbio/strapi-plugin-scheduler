@@ -24,7 +24,7 @@ const scheduledPublish = () => {
       <Box padding={4}>
         <Divider />
       </Box>
-      <Stack vertical size={2}>
+      <Stack vertical spacing={2}>
         <ScheduledPublish />
       </Stack>
     </Box>

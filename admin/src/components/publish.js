@@ -16,19 +16,21 @@ const ScheduledPublish = () => {
   const [unpublishDate, setUnpublishDate] = useState(undefined);
   const [unpublishTime, setUnpublishTime] = useState(undefined);
   const [hasPublishDate, setHasPublishDate] = useState(false);
+  const [hasUnpublishDate, setHasUnpublishDate] = useState(false);
   const params = useParams();
   const id = get(params, 'id', null);
   const uid = query.layout.uid;
   const { addStartDate } = useAddStartDate();
   const { updateStartDate } = useUpdateStartDate();
 
-  const handlePublishClick = () => {
+  const finalDate = (date, time) => {
     let hours;
     let minutes;
     const selectedDate = new Date(date);
     const day = selectedDate.getDate();
     const month = selectedDate.getMonth();
     const year = selectedDate.getFullYear();
+
     if (time) {
       const selectedTime = time.split(':');
       hours = selectedTime[0];
@@ -38,24 +40,42 @@ const ScheduledPublish = () => {
       minutes = '00';
     }
 
-    const finalDate = new Date(year, month, day, hours, minutes);
+    return new Date(year, month, day, hours, minutes);
+  };
 
-    if (hasPublishDate) {
+  const handlePublishClick = () => {
+    if (hasPublishDate && publishDate) {
       updateStartDate({
-        date: finalDate,
+        date: finalDate(publishDate, publishTime),
         uid,
         contentId: id,
         scheduleType: 'schedule'
       });
-    }
-    if (!hasPublishDate) {
+    } else if (!hasPublishDate && publishDate) {
       addStartDate({
-        date: finalDate,
+        date: finalDate(publishDate, publishTime),
         uid,
         contentId: id,
         scheduleType: 'schedule'
       });
       setHasPublishDate(true);
+    }
+
+    if (hasUnpublishDate && unpublishDate) {
+      updateStartDate({
+        date: finalDate(unpublishDate, unpublishTime),
+        uid,
+        contentId: id,
+        scheduleType: 'depublish'
+      });
+    } else if (!hasUnpublishDate && unpublishDate) {
+      addStartDate({
+        date: finalDate(unpublishDate, unpublishTime),
+        uid,
+        contentId: id,
+        scheduleType: 'depublish'
+      });
+      setHasUnpublishDate(true);
     }
   };
 
@@ -68,8 +88,17 @@ const ScheduledPublish = () => {
         setPublishDate(currentScheduledDate);
         const hours = currentScheduledDate.getHours();
         const minutes = currentScheduledDate.getMinutes();
-        setTime(`${hours}:${minutes}`);
+        setPublishTime(`${hours}:${minutes}`);
         setHasPublishDate(true);
+      }
+      if (element.scheduleType === 'depublish') {
+        const currentScheduledDate = new Date(element.scheduledDatetime);
+
+        setUnpublishDate(currentScheduledDate);
+        const hours = currentScheduledDate.getHours();
+        const minutes = currentScheduledDate.getMinutes();
+        setUnpublishTime(`${hours}:${minutes}`);
+        setHasUnpublishDate(true);
       }
     });
   };
@@ -80,11 +109,8 @@ const ScheduledPublish = () => {
 
   const dateTimePickerButton = () => {
     if (
-      id &&
-      publishDate !== undefined &&
-      publishTime !== undefined &&
-      unpublishDate !== undefined &&
-      unpublishTime !== undefined
+      (id && publishDate !== undefined && publishTime !== undefined) ||
+      (unpublishDate !== undefined && unpublishTime !== undefined)
     ) {
       return (
         <Button fullWidth onClick={handlePublishClick}>
@@ -103,7 +129,7 @@ const ScheduledPublish = () => {
 
   return (
     <div>
-      <Stack horizontal size={2} paddingBottom={4}>
+      <Stack horizontal spacing={2} paddingBottom={4}>
         <DatePicker
           size="S"
           onChange={setPublishDate}
@@ -128,7 +154,7 @@ const ScheduledPublish = () => {
           clearLabel={'Clear the selected time picker value'}
         />
       </Stack>
-      <Stack horizontal size={2} paddingBottom={4}>
+      <Stack horizontal spacing={2} paddingBottom={4}>
         <DatePicker
           size="S"
           label={`Unpublish`}

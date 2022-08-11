@@ -1,7 +1,7 @@
-import { request, useNotification } from "@strapi/helper-plugin";
-import { useDispatch } from "react-redux";
-import getTrad from "../../utils/getTrad";
-import { UPDATE_STARTDATE } from "../constants";
+import { request, useNotification } from '@strapi/helper-plugin';
+import { useDispatch } from 'react-redux';
+import getTrad from '../../utils/getTrad';
+import { UPDATE_STARTDATE } from '../constants';
 
 const updateStartDate = async (dateData, toggleNotification) => {
   const scheduledDatetime = dateData.date;
@@ -9,16 +9,16 @@ const updateStartDate = async (dateData, toggleNotification) => {
   const contentId = dateData.contentId;
   const scheduleType = dateData.scheduleType;
   const data = await request(`/scheduler/${uid}/${contentId}`, {
-    method: "PUT",
+    method: 'PUT',
     body: {
       scheduledDatetime,
       scheduleType
-    },
+    }
   });
 
   toggleNotification({
-    type: "success",
-    message: { id: getTrad("Settings.scheduler.success") },
+    type: 'success',
+    message: { id: getTrad(`Settings.scheduler.${dateData.scheduleType}.success`) }
   });
   return data;
 };
@@ -33,8 +33,8 @@ const useUpdateStartDate = () => {
       dispatch({ type: UPDATE_STARTDATE, newDate });
     } catch (e) {
       toggleNotification({
-        type: "warning",
-        message: { id: "notification.error" },
+        type: 'warning',
+        message: { id: 'notification.error' }
       });
       throw e;
     }
