@@ -1,73 +1,104 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { DatePicker } from "@strapi/design-system/DatePicker";
-import { TimePicker } from "@strapi/design-system/TimePicker";
-import { Button } from "@strapi/design-system/Button";
-import get from "lodash/get";
-import { Box, Stack } from "@strapi/design-system";
-import { useCMEditViewDataManager, request } from "@strapi/helper-plugin";
-import { useParams } from "react-router-dom";
-import useAddStartDate from "../hooks/createDate";
-import useUpdateStartDate from "../hooks/updateDate";
+import React, { useState, useEffect, useMemo } from 'react';
+import { DatePicker } from '@strapi/design-system/DatePicker';
+import { TimePicker } from '@strapi/design-system/TimePicker';
+import { Button } from '@strapi/design-system/Button';
+import get from 'lodash/get';
+import { Box, Stack } from '@strapi/design-system';
+import { useCMEditViewDataManager, request } from '@strapi/helper-plugin';
+import { useParams } from 'react-router-dom';
+import useAddStartDate from '../hooks/createDate';
+import useUpdateStartDate from '../hooks/updateDate';
 
 const ScheduledPublish = () => {
   const query = useCMEditViewDataManager();
-  const [date, setDate] = useState(undefined);
-  const [time, setTime] = useState(undefined);
+  const [publishDate, setPublishDate] = useState(undefined);
+  const [publishTime, setPublishTime] = useState(undefined);
+  const [unpublishDate, setUnpublishDate] = useState(undefined);
+  const [unpublishTime, setUnpublishTime] = useState(undefined);
   const [hasPublishDate, setHasPublishDate] = useState(false);
+  const [hasUnpublishDate, setHasUnpublishDate] = useState(false);
   const params = useParams();
-  const id = get(params, "id", null);
+  const id = get(params, 'id', null);
   const uid = query.layout.uid;
   const { addStartDate } = useAddStartDate();
   const { updateStartDate } = useUpdateStartDate();
 
-  const handlePublishClick = () => {
+  const finalDate = (date, time) => {
     let hours;
     let minutes;
     const selectedDate = new Date(date);
     const day = selectedDate.getDate();
     const month = selectedDate.getMonth();
     const year = selectedDate.getFullYear();
+
     if (time) {
-      const selectedTime = time.split(":");
+      const selectedTime = time.split(':');
       hours = selectedTime[0];
       minutes = selectedTime[1];
     } else {
-      hours = "00";
-      minutes = "00";
+      hours = '00';
+      minutes = '00';
     }
 
-    const finalDate = new Date(year, month, day, hours, minutes);
-    
-    if (hasPublishDate) {
+    return new Date(year, month, day, hours, minutes);
+  };
+
+  const handlePublishClick = () => {
+    if (hasPublishDate && publishDate) {
       updateStartDate({
-        date: finalDate,
+        date: finalDate(publishDate, publishTime),
         uid,
         contentId: id,
-        scheduleType: "schedule",
+        scheduleType: 'schedule'
       });
-    }
-    if (!hasPublishDate) {
+    } else if (!hasPublishDate && publishDate) {
       addStartDate({
-        date: finalDate,
+        date: finalDate(publishDate, publishTime),
         uid,
         contentId: id,
-        scheduleType: "schedule",
+        scheduleType: 'schedule'
       });
       setHasPublishDate(true);
+    }
+
+    if (hasUnpublishDate && unpublishDate) {
+      updateStartDate({
+        date: finalDate(unpublishDate, unpublishTime),
+        uid,
+        contentId: id,
+        scheduleType: 'depublish'
+      });
+    } else if (!hasUnpublishDate && unpublishDate) {
+      addStartDate({
+        date: finalDate(unpublishDate, unpublishTime),
+        uid,
+        contentId: id,
+        scheduleType: 'depublish'
+      });
+      setHasUnpublishDate(true);
     }
   };
 
   const getScheduledDate = async () => {
     const data = await request(`/scheduler/${uid}/${id}`);
     data.forEach((element) => {
-      if (element.scheduleType === "schedule") {
+      if (element.scheduleType === 'schedule') {
         const currentScheduledDate = new Date(element.scheduledDatetime);
 
-        setDate(currentScheduledDate);
+        setPublishDate(currentScheduledDate);
         const hours = currentScheduledDate.getHours();
         const minutes = currentScheduledDate.getMinutes();
-        setTime(`${hours}:${minutes}`);
+        setPublishTime(`${hours}:${minutes}`);
         setHasPublishDate(true);
+      }
+      if (element.scheduleType === 'depublish') {
+        const currentScheduledDate = new Date(element.scheduledDatetime);
+
+        setUnpublishDate(currentScheduledDate);
+        const hours = currentScheduledDate.getHours();
+        const minutes = currentScheduledDate.getMinutes();
+        setUnpublishTime(`${hours}:${minutes}`);
+        setHasUnpublishDate(true);
       }
     });
   };
@@ -76,13 +107,21 @@ const ScheduledPublish = () => {
     getScheduledDate();
   }, []);
 
-  const dateTimePickerButton = (name) => {
-    if (id) {
-      return <Button onClick={handlePublishClick}> Set {name} time </Button>;
+  const dateTimePickerButton = () => {
+    if (
+      (id && publishDate !== undefined && publishTime !== undefined) ||
+      (unpublishDate !== undefined && unpublishTime !== undefined)
+    ) {
+      return (
+        <Button fullWidth onClick={handlePublishClick}>
+          {' '}
+          Save{' '}
+        </Button>
+      );
     } else {
       return (
-        <Button onClick={handlePublishClick} disabled>
-          Save first
+        <Button fullWidth onClick={handlePublishClick} disabled>
+          Save
         </Button>
       );
     }
@@ -90,35 +129,58 @@ const ScheduledPublish = () => {
 
   return (
     <div>
-      <Stack horizontal size={2}>
+      <Stack horizontal spacing={2} paddingBottom={4}>
         <DatePicker
           size="S"
-          onChange={setDate}
-          selectedDate={date}
-          label={`Publish at`}
+          onChange={setPublishDate}
+          selectedDate={publishDate}
+          label={`Publish`}
           name="datepicker"
-          clearLabel={"Clear the datepicker"}
-          onClear={() => setDate(undefined)}
-          selectedDateLabel={(formattedDate) =>
-            `Date picker, current is ${formattedDate}`
-          }
+          clearLabel={'Clear the datepicker'}
+          onClear={() => setPublishDate(undefined)}
+          selectedDateLabel={(formattedDate) => `Date picker, current is ${formattedDate}`}
         />
-        <Box padding={1} />
         <TimePicker
           step={30}
-          label={"Choose a time"}
+          label="&nbsp;"
+          aria-label="Time picker"
           disabled={false}
           error={undefined}
-          id={"tp-1"}
+          id={'tp-1'}
           size="S"
-          onClear={() => setTime(undefined)}
-          onChange={setTime}
-          value={time}
-          clearLabel={"Clear the selected time picker value"}
+          onClear={() => setPublishTime(undefined)}
+          onChange={setPublishTime}
+          value={publishTime}
+          clearLabel={'Clear the selected time picker value'}
+        />
+      </Stack>
+      <Stack horizontal spacing={2} paddingBottom={4}>
+        <DatePicker
+          size="S"
+          label={`Unpublish`}
+          onChange={setUnpublishDate}
+          selectedDate={unpublishDate}
+          name="datepicker"
+          clearLabel={'Clear the datepicker'}
+          onClear={() => setUnpublishDate(undefined)}
+          selectedDateLabel={(formattedDate) => `Date picker, current is ${formattedDate}`}
+        />
+        <TimePicker
+          step={30}
+          label="&nbsp;"
+          aria-label="Time picker"
+          disabled={false}
+          error={undefined}
+          id={'tp-1'}
+          size="S"
+          onClear={() => setUnpublishTime(undefined)}
+          onChange={setUnpublishTime}
+          value={unpublishTime}
+          clearLabel={'Clear the selected time picker value'}
         />
       </Stack>
       <Box paddingTop={2} paddingBottom={2}>
-        {dateTimePickerButton("publish")}
+        {dateTimePickerButton()}
       </Box>
       <div></div>
     </div>
