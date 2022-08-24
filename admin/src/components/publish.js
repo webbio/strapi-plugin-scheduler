@@ -8,6 +8,7 @@ import { useCMEditViewDataManager, request } from '@strapi/helper-plugin';
 import { useParams } from 'react-router-dom';
 import useAddStartDate from '../hooks/createDate';
 import useUpdateStartDate from '../hooks/updateDate';
+import '../styles.css';
 
 const ScheduledPublish = () => {
   const query = useCMEditViewDataManager();
@@ -129,56 +130,60 @@ const ScheduledPublish = () => {
 
   return (
     <div>
-      <Stack horizontal spacing={2} paddingBottom={4}>
-        <DatePicker
-          size="S"
-          onChange={setPublishDate}
-          selectedDate={publishDate}
-          label={`Publish`}
-          name="datepicker"
-          clearLabel={'Clear the datepicker'}
-          onClear={() => setPublishDate(undefined)}
-          selectedDateLabel={(formattedDate) => `Date picker, current is ${formattedDate}`}
-        />
-        <TimePicker
-          step={30}
-          label="&nbsp;"
-          aria-label="Time picker"
-          disabled={false}
-          error={undefined}
-          id={'tp-1'}
-          size="S"
-          onClear={() => setPublishTime(undefined)}
-          onChange={setPublishTime}
-          value={publishTime}
-          clearLabel={'Clear the selected time picker value'}
-        />
-      </Stack>
-      <Stack horizontal spacing={2} paddingBottom={4}>
-        <DatePicker
-          size="S"
-          label={`Unpublish`}
-          onChange={setUnpublishDate}
-          selectedDate={unpublishDate}
-          name="datepicker"
-          clearLabel={'Clear the datepicker'}
-          onClear={() => setUnpublishDate(undefined)}
-          selectedDateLabel={(formattedDate) => `Date picker, current is ${formattedDate}`}
-        />
-        <TimePicker
-          step={30}
-          label="&nbsp;"
-          aria-label="Time picker"
-          disabled={false}
-          error={undefined}
-          id={'tp-1'}
-          size="S"
-          onClear={() => setUnpublishTime(undefined)}
-          onChange={setUnpublishTime}
-          value={unpublishTime}
-          clearLabel={'Clear the selected time picker value'}
-        />
-      </Stack>
+      <Box paddingBottom={4} className="responsiveStack">
+        <span className="field">
+          <DatePicker
+            label={`Publish`}
+            onChange={setPublishDate}
+            selectedDate={publishDate}
+            name="datepicker"
+            clearLabel={'Clear the datepicker'}
+            onClear={() => setPublishDate(undefined)}
+            selectedDateLabel={(formattedDate) => `Date picker, current is ${formattedDate}`}
+          />
+        </span>
+        <span className="field">
+          <TimePicker
+            step={30}
+            label="&nbsp;"
+            aria-label="Time picker"
+            disabled={false}
+            error={undefined}
+            id={'tp-1'}
+            onClear={() => setPublishTime(undefined)}
+            onChange={setPublishTime}
+            value={publishTime}
+            clearLabel={'Clear the selected time picker value'}
+          />
+        </span>
+      </Box>
+      <Box paddingBottom={4} className="responsiveStack">
+        <span className="field">
+          <DatePicker
+            label={`Unpublish`}
+            onChange={setUnpublishDate}
+            selectedDate={unpublishDate}
+            name="datepicker"
+            clearLabel={'Clear the datepicker'}
+            onClear={() => setUnpublishDate(undefined)}
+            selectedDateLabel={(formattedDate) => `Date picker, current is ${formattedDate}`}
+          />
+        </span>
+        <span className="field">
+          <TimePicker
+            step={30}
+            label="&nbsp;"
+            aria-label="Time picker"
+            disabled={false}
+            error={undefined}
+            id={'tp-1'}
+            onClear={() => setUnpublishTime(undefined)}
+            onChange={setUnpublishTime}
+            value={unpublishTime}
+            clearLabel={'Clear the selected time picker value'}
+          />
+        </span>
+      </Box>
       <Box paddingTop={2} paddingBottom={2}>
         {dateTimePickerButton()}
       </Box>
