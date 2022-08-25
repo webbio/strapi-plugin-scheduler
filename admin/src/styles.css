@@ -1,0 +1,22 @@
+.responsiveStack {
+  display: flex;
+}
+
+.field {
+  width: 50%;
+}
+
+.field:last-child {
+  padding-left: 8px;
+}
+
+@media (max-width: 1600px) {
+  .responsiveStack {
+    display: block;
+  }
+
+  .field {
+    width: 100%;
+  }
+}
+
