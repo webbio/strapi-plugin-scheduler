@@ -3,7 +3,7 @@ import { DatePicker } from "@strapi/design-system/DatePicker";
 import { TimePicker } from "@strapi/design-system/TimePicker";
 import { Button } from "@strapi/design-system/Button";
 import get from "lodash/get";
-import { Box, Stack } from "@strapi/design-system";
+import { Box } from "@strapi/design-system";
 import { useCMEditViewDataManager, request } from "@strapi/helper-plugin";
 import { useParams } from "react-router-dom";
 import useAddStartDate from "../hooks/createDate";
@@ -12,12 +12,20 @@ import "../styles.css";
 
 const ScheduledPublish = () => {
   const query = useCMEditViewDataManager();
+
+  const [initialPublishDate, setInitialPublishDate] = useState(undefined);
+  const [initialPublishTime, setInitialPublishTime] = useState(undefined);
   const [publishDate, setPublishDate] = useState(undefined);
   const [publishTime, setPublishTime] = useState(undefined);
-  const [unpublishDate, setUnpublishDate] = useState(undefined);
-  const [unpublishTime, setUnpublishTime] = useState(undefined);
+
+  const [initialDePublishDate, setInitialDePublishDate] = useState(undefined);
+  const [initialDePublishTime, setInitialDePublishTime] = useState(undefined);
+  const [dePublishDate, setDePublishDate] = useState(undefined);
+  const [dePublishTime, setDePublishTime] = useState(undefined);
+
   const [hasPublishDate, setHasPublishDate] = useState(false);
-  const [hasUnpublishDate, setHasUnpublishDate] = useState(false);
+  const [hasDePublishDate, sethasDePublishDate] = useState(false);
+
   const params = useParams();
   const id = get(params, "id", null);
   const uid = query.layout.uid;
@@ -52,9 +60,12 @@ const ScheduledPublish = () => {
         contentId: id,
         scheduleType: "schedule",
       });
-    } else if (!hasPublishDate && publishDate) {
+    } else if (!hasPublishDate && (publishDate || initialPublishDate)) {
       addStartDate({
-        date: finalDate(publishDate, publishTime),
+        date: finalDate(
+          publishDate || initialPublishDate,
+          publishTime || initialDePublishTime
+        ),
         uid,
         contentId: id,
         scheduleType: "schedule",
@@ -62,16 +73,19 @@ const ScheduledPublish = () => {
       setHasPublishDate(true);
     }
 
-    if (hasUnpublishDate && unpublishDate) {
+    if (hasDePublishDate && dePublishDate) {
       updateStartDate({
-        date: finalDate(unpublishDate, unpublishTime),
+        date: finalDate(dePublishDate, dePublishTime),
         uid,
         contentId: id,
         scheduleType: "depublish",
       });
-    } else if (!hasUnpublishDate && unpublishDate) {
+    } else if (!hasDePublishDate && (dePublishDate || initialDePublishDate)) {
       addStartDate({
-        date: finalDate(unpublishDate, unpublishTime),
+        date: finalDate(
+          dePublishDate || initialDePublishDate,
+          dePublishTime || o
+        ),
         uid,
         contentId: id,
         scheduleType: "depublish",
@@ -81,28 +95,48 @@ const ScheduledPublish = () => {
   };
 
   const getScheduledDate = async () => {
-    const [data, config] = await Promise.all([request(`/scheduler/${uid}/${id}`), request(`/scheduler/config/${uid}`)]);
-    console.log(config);
-    data.forEach((element) => {
-      if (element.scheduleType === "schedule") {
-        const currentScheduledDate = new Date(element.scheduledDatetime);
+    const [data, config] = await Promise.all([
+      request(`/scheduler/schedule/${uid}/${id}`),
+      request(`/scheduler/config/${uid}`),
+    ]);
 
-        setPublishDate(currentScheduledDate);
-        const hours = currentScheduledDate.getHours();
-        const minutes = currentScheduledDate.getMinutes();
-        setPublishTime(`${hours}:${minutes}`);
-        setHasPublishDate(true);
-      }
-      if (element.scheduleType === "depublish") {
-        const currentScheduledDate = new Date(element.scheduledDatetime);
+    if (!data.schedule && config.initialScheduleDate) {
+      const currentScheduledDate = new Date(config.initialScheduleDate);
 
-        setUnpublishDate(currentScheduledDate);
-        const hours = currentScheduledDate.getHours();
-        const minutes = currentScheduledDate.getMinutes();
-        setUnpublishTime(`${hours}:${minutes}`);
-        setHasUnpublishDate(true);
-      }
-    });
+      setInitialPublishDate(currentScheduledDate);
+      const hours = currentScheduledDate.getHours();
+      const minutes = currentScheduledDate.getMinutes();
+      setInitialPublishTime(`${hours}:${minutes}`);
+    }
+
+    if (data.schedule) {
+      const currentScheduledDate = new Date(data.schedule.scheduledDatetime);
+
+      setPublishDate(currentScheduledDate);
+      const hours = currentScheduledDate.getHours();
+      const minutes = currentScheduledDate.getMinutes();
+      setPublishTime(`${hours}:${minutes}`);
+      setHasPublishDate(true);
+    }
+
+    if (!data.depublish && config.initialDePublishDate) {
+      const currentScheduledDate = new Date(config.initialDePublishDate);
+
+      setInitialDePublishDate(currentScheduledDate);
+      const hours = currentScheduledDate.getHours();
+      const minutes = currentScheduledDate.getMinutes();
+      setInitialDePublishTime(`${hours}:${minutes}`);
+    }
+
+    if (data.depublish) {
+      const currentScheduledDate = new Date(data.depublish.scheduledDatetime);
+
+      setDePublishDate(currentScheduledDate);
+      const hours = currentScheduledDate.getHours();
+      const minutes = currentScheduledDate.getMinutes();
+      setDePublishTime(`${hours}:${minutes}`);
+      sethasDePublishDate(true);
+    }
   };
 
   useEffect(() => {
@@ -111,13 +145,15 @@ const ScheduledPublish = () => {
 
   const dateTimePickerButton = () => {
     if (
-      (id && publishDate !== undefined && publishTime !== undefined) ||
-      (unpublishDate !== undefined && unpublishTime !== undefined)
+      (id &&
+        (publishDate !== undefined || initialPublishDate !== undefined) &&
+        (publishTime !== undefined || initialPublishTime !== undefined)) ||
+      ((dePublishDate !== undefined || initialDePublishDate !== undefined) &&
+        (dePublishTime !== undefined || initialDePublishTime !== undefined))
     ) {
       return (
         <Button fullWidth onClick={handlePublishClick}>
-          {" "}
-          Save{" "}
+          Save
         </Button>
       );
     } else {
@@ -136,11 +172,13 @@ const ScheduledPublish = () => {
           <DatePicker
             label={`Publish`}
             onChange={setPublishDate}
-            selectedDate={publishDate}
+            selectedDate={publishDate || initialPublishDate}
             name="datepicker"
             clearLabel={"Clear the datepicker"}
             onClear={() => setPublishDate(undefined)}
-            selectedDateLabel={(formattedDate) => `Date picker, current is ${formattedDate}`}
+            selectedDateLabel={(formattedDate) =>
+              `Date picker, current is ${formattedDate}`
+            }
           />
         </span>
         <span className="field">
@@ -153,7 +191,7 @@ const ScheduledPublish = () => {
             id={"tp-1"}
             onClear={() => setPublishTime(undefined)}
             onChange={setPublishTime}
-            value={publishTime}
+            value={publishTime || initialPublishTime}
             clearLabel={"Clear the selected time picker value"}
           />
         </span>
@@ -162,12 +200,14 @@ const ScheduledPublish = () => {
         <span className="field">
           <DatePicker
             label={`Unpublish`}
-            onChange={setUnpublishDate}
-            selectedDate={unpublishDate}
+            onChange={setDePublishDate}
+            selectedDate={dePublishDate || initialDePublishDate}
             name="datepicker"
             clearLabel={"Clear the datepicker"}
-            onClear={() => setUnpublishDate(undefined)}
-            selectedDateLabel={(formattedDate) => `Date picker, current is ${formattedDate}`}
+            onClear={() => setDePublishDate(undefined)}
+            selectedDateLabel={(formattedDate) =>
+              `Date picker, current is ${formattedDate}`
+            }
           />
         </span>
         <span className="field">
@@ -178,9 +218,9 @@ const ScheduledPublish = () => {
             disabled={false}
             error={undefined}
             id={"tp-1"}
-            onClear={() => setUnpublishTime(undefined)}
-            onChange={setUnpublishTime}
-            value={unpublishTime}
+            onClear={() => setDePublishTime(undefined)}
+            onChange={setDePublishTime}
+            value={dePublishTime || initialDePublishTime}
             clearLabel={"Clear the selected time picker value"}
           />
         </span>

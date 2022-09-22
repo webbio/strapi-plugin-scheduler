@@ -1,25 +1,17 @@
 module.exports = [
   {
     method: "GET",
-    path: "/config/:uid",
-    handler: "config.findOne",
-    config: {
-      policies: [],
-      auth: false,
-    },
-  },
-  {
-    method: "GET",
-    path: "/:uid/:id",
+    path: "/schedule/:uid/:id",
     handler: "scheduler.getByUidAndId",
     config: {
       policies: [],
       auth: false,
     },
   },
+
   {
     method: "PUT",
-    path: "/:uid/:id",
+    path: "/schedule/:uid/:id",
     handler: "scheduler.updateTime",
     config: {
       policies: [],
@@ -28,7 +20,7 @@ module.exports = [
   },
   {
     method: "POST",
-    path: "/create",
+    path: "/schedule/create",
     handler: "scheduler.create",
     config: {
       policies: [],
@@ -36,9 +28,9 @@ module.exports = [
     },
   },
   {
-    method: "POST",
-    path: "/scheduler/:uid/:id",
-    handler: "scheduler.create",
+    method: "GET",
+    path: "/config/:uid",
+    handler: "config.findOne",
     config: {
       policies: [],
       auth: false,

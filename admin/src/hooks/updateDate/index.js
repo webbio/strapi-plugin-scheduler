@@ -1,25 +1,25 @@
-import { request, useNotification } from '@strapi/helper-plugin';
-import { useDispatch } from 'react-redux';
-import { useIntl } from 'react-intl';
-import getTrad from '../../utils/getTrad';
-import { UPDATE_STARTDATE } from '../constants';
+import { request, useNotification } from "@strapi/helper-plugin";
+import { useDispatch } from "react-redux";
+import { useIntl } from "react-intl";
+import getTrad from "../../utils/getTrad";
+import { UPDATE_STARTDATE } from "../constants";
 
 const updateStartDate = async (dateData, toggleNotification, message) => {
   const scheduledDatetime = dateData.date;
   const uid = dateData.uid;
   const contentId = dateData.contentId;
   const scheduleType = dateData.scheduleType;
-  const data = await request(`/scheduler/${uid}/${contentId}`, {
-    method: 'PUT',
+  const data = await request(`/scheduler/schedule/${uid}/${contentId}`, {
+    method: "PUT",
     body: {
       scheduledDatetime,
-      scheduleType
-    }
+      scheduleType,
+    },
   });
 
   toggleNotification({
-    type: 'success',
-    message
+    type: "success",
+    message,
   });
   return data;
 };
@@ -32,18 +32,22 @@ const useUpdateStartDate = () => {
   const persistUpdateDate = async (dateData) => {
     const message = intl.formatMessage(
       {
-        id: getTrad(`Settings.scheduler.${dateData.scheduleType}.success`)
+        id: getTrad(`Settings.scheduler.${dateData.scheduleType}.success`),
       },
       { time: dateData.date.toLocaleString() }
     );
 
     try {
-      const newDate = await updateStartDate(dateData, toggleNotification, message);
+      const newDate = await updateStartDate(
+        dateData,
+        toggleNotification,
+        message
+      );
       dispatch({ type: UPDATE_STARTDATE, newDate });
     } catch (e) {
       toggleNotification({
-        type: 'warning',
-        message: { id: 'notification.error' }
+        type: "warning",
+        message: { id: "notification.error" },
       });
       throw e;
     }
