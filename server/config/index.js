@@ -1,6 +1,12 @@
-'use strict';
+"use strict";
+
+const validateGlobalConfig = (config) => {};
+
+const validateContentTypeConfig = (config) => {};
 
 module.exports = {
   default: {},
-  validator() {},
+  validator: (config) => {
+    console.log(config);
+  },
 };

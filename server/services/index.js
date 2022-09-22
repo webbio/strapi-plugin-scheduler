@@ -1,7 +1,7 @@
-'use strict';
-
-const myService = require('./my-service');
+const scheduler = require("./scheduler");
+const config = require("./config");
 
 module.exports = {
-  myService,
+  config,
+  scheduler,
 };
