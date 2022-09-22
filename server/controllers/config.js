@@ -4,6 +4,8 @@ module.exports = {
       .service("plugin::scheduler.config")
       .getContentTypeConfig(ctx.params.uid);
 
-    return result;
+    return {
+      data: result,
+    };
   },
 };

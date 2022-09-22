@@ -6,7 +6,5 @@ const validateContentTypeConfig = (config) => {};
 
 module.exports = {
   default: {},
-  validator: (config) => {
-    console.log(config);
-  },
+  validator: (config) => {},
 };

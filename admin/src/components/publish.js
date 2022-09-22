@@ -84,7 +84,7 @@ const ScheduledPublish = () => {
       addStartDate({
         date: finalDate(
           dePublishDate || initialDePublishDate,
-          dePublishTime || o
+          dePublishTime || initialDePublishTime
         ),
         uid,
         contentId: id,
@@ -100,8 +100,8 @@ const ScheduledPublish = () => {
       request(`/scheduler/config/${uid}`),
     ]);
 
-    if (!data.schedule && config.initialScheduleDate) {
-      const currentScheduledDate = new Date(config.initialScheduleDate);
+    if (!data.schedule && config?.data?.initialScheduleDate) {
+      const currentScheduledDate = new Date(config.data.initialScheduleDate);
 
       setInitialPublishDate(currentScheduledDate);
       const hours = currentScheduledDate.getHours();
@@ -119,8 +119,8 @@ const ScheduledPublish = () => {
       setHasPublishDate(true);
     }
 
-    if (!data.depublish && config.initialDePublishDate) {
-      const currentScheduledDate = new Date(config.initialDePublishDate);
+    if (!data.depublish && config?.data?.initialDePublishDate) {
+      const currentScheduledDate = new Date(config.data.initialDePublishDate);
 
       setInitialDePublishDate(currentScheduledDate);
       const hours = currentScheduledDate.getHours();
