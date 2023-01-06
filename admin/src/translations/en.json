@@ -1,5 +1,0 @@
-{
-  "Settings.scheduler.schedule.success": "Post publish has been scheduled",
-  "Settings.scheduler.depublish.success": "Post unpublish has been scheduled",
-  "Settings.scheduler.alreadyExist": "This locale already exists"
-}
