@@ -1,7 +1,7 @@
 {
   "name": "@webbio/strapi-plugin-scheduler",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0-beta.0",
   "description": "A plugin to publish or depublish content types in the future.",
   "strapi": {
     "name": "scheduler",
