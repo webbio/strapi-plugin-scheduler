@@ -15,17 +15,21 @@
     }
   },
   "attributes": {
-    "scheduledDatetime": {
-      "type": "datetime"
-    },
     "uid": {
+      "required": true,
       "type": "string"
     },
-    "contentId": {
+    "entryId": {
+      "required": true,
       "type": "biginteger"
     },
-    "scheduleType": {
-      "type": "string"
+    "type": {
+      "required": true,
+      "type": "enumeration",
+      "enum": ["publish", "archive"]
+    },
+    "datetime": {
+      "type": "datetime"
     }
   }
 }

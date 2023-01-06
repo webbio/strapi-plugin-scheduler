@@ -1,0 +1,35 @@
+{
+    "info": {
+        "collectionName": "scheduler",
+        "singularName": "scheduler",
+        "pluralName": "scheduler",
+        "displayName": "scheduler",
+        "description": ""
+    },
+    "pluginOptions": {
+        "content-manager": {
+            "visible": false
+        },
+        "content-type-builder": {
+            "visible": false
+        }
+    },
+    "attributes": {
+        "uid": {
+            "required": true,
+            "type": "string"
+        },
+        "entryId": {
+            "required": true,
+            "type": "biginteger"
+        },
+        "type": {
+            "required": true,
+            "type": "enumeration",
+            "enum": ["publish", "archive"]
+        },
+        "datetime": {
+            "type": "datetime"
+        }
+    }
+}
