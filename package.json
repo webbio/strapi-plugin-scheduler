@@ -1,0 +1,38 @@
+{
+  "name": "@webbio/strapi-plugin-scheduler",
+  "version": "0.1.1-alpha.0",
+  "description": "A plugin to publish or depublish content types in the future.",
+  "strapi": {
+    "name": "scheduler",
+    "description": "A plugin to publish or depublish content types in the future.",
+    "kind": "plugin"
+  },
+  "dependencies": {
+    "@strapi/design-system": "^1.4.1",
+    "@strapi/icons": "^1.4.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.4"
+  },
+  "peerDependencies": {
+    "@strapi/strapi": "^4.0.0"
+  },
+  "author": {
+    "name": "Webbio <info@webbio.nl>"
+  },
+  "maintainers": [
+    {
+      "name": "Webbio"
+    }
+  ],
+  "engines": {
+    "node": ">=14.19.1 <=18.x.x",
+    "npm": ">=6.0.0"
+  },
+  "scripts": {
+    "develop": "tsc -w",
+    "build": "tsc",
+    "format": "prettier --write ."
+  },
+  "license": "MIT"
+}
