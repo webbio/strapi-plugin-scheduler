@@ -1,9 +1,9 @@
-import { prefixPluginTranslations } from '@strapi/helper-plugin';
-import pluginPkg from '../../package.json';
-import pluginId from './pluginId';
-import Initializer from './components/Initializer';
-import scheduler from './components/scheduler';
-import dateReducers from './hooks/reducers';
+import { prefixPluginTranslations } from "@strapi/helper-plugin";
+import pluginPkg from "../../package.json";
+import pluginId from "./pluginId";
+import Initializer from "./components/Initializer";
+import scheduler from "./components/scheduler";
+import dateReducers from "./hooks/reducers";
 
 const name = pluginPkg.strapi.name;
 
@@ -14,14 +14,14 @@ export default {
       id: pluginId,
       initializer: Initializer,
       isReady: false,
-      name
+      name,
     });
   },
 
   bootstrap(app) {
-    app.injectContentManagerComponent('editView', 'right-links', {
-      name: 'my-plugin-my-compo',
-      Component: scheduler
+    app.injectContentManagerComponent("editView", "right-links", {
+      name: "my-plugin-my-compo",
+      Component: scheduler,
     });
   },
   async registerTrads({ locales }) {
@@ -31,18 +31,18 @@ export default {
           .then(({ default: data }) => {
             return {
               data: prefixPluginTranslations(data, pluginId),
-              locale
+              locale,
             };
           })
           .catch(() => {
             return {
               data: {},
-              locale
+              locale,
             };
           });
       })
     );
 
     return Promise.resolve(importedTrads);
-  }
+  },
 };

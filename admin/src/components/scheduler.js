@@ -1,8 +1,8 @@
-import React from 'react';
-import { Box, Stack } from '@strapi/design-system';
-import { Divider } from '@strapi/design-system/Divider';
-import { Typography } from '@strapi/design-system/Typography';
-import ScheduledPublish from './publish';
+import React from "react";
+import { Box, Stack } from "@strapi/design-system";
+import { Divider } from "@strapi/design-system/Divider";
+import { Typography } from "@strapi/design-system/Typography";
+import ScheduledPublish from "./publish";
 
 const scheduledPublish = () => {
   return (

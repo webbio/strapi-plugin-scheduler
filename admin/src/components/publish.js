@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { DatePicker } from '@strapi/design-system/DatePicker';
-import { TimePicker } from '@strapi/design-system/TimePicker';
-import { Button } from '@strapi/design-system/Button';
-import get from 'lodash/get';
-import { Box, Stack } from '@strapi/design-system';
-import { useCMEditViewDataManager, request } from '@strapi/helper-plugin';
-import { useParams } from 'react-router-dom';
-import useAddStartDate from '../hooks/createDate';
-import useUpdateStartDate from '../hooks/updateDate';
-import '../styles.css';
+import React, { useState, useEffect, useMemo } from "react";
+import { DatePicker } from "@strapi/design-system/DatePicker";
+import { TimePicker } from "@strapi/design-system/TimePicker";
+import { Button } from "@strapi/design-system/Button";
+import get from "lodash/get";
+import { Box, Stack } from "@strapi/design-system";
+import { useCMEditViewDataManager, request } from "@strapi/helper-plugin";
+import { useParams } from "react-router-dom";
+import useAddStartDate from "../hooks/createDate";
+import useUpdateStartDate from "../hooks/updateDate";
+import "../styles.css";
 
 const ScheduledPublish = () => {
   const query = useCMEditViewDataManager();
@@ -19,7 +19,7 @@ const ScheduledPublish = () => {
   const [hasPublishDate, setHasPublishDate] = useState(false);
   const [hasUnpublishDate, setHasUnpublishDate] = useState(false);
   const params = useParams();
-  const id = get(params, 'id', null);
+  const id = get(params, "id", null);
   const uid = query.layout.uid;
   const { addStartDate } = useAddStartDate();
   const { updateStartDate } = useUpdateStartDate();
@@ -33,12 +33,12 @@ const ScheduledPublish = () => {
     const year = selectedDate.getFullYear();
 
     if (time) {
-      const selectedTime = time.split(':');
+      const selectedTime = time.split(":");
       hours = selectedTime[0];
       minutes = selectedTime[1];
     } else {
-      hours = '00';
-      minutes = '00';
+      hours = "00";
+      minutes = "00";
     }
 
     return new Date(year, month, day, hours, minutes);
@@ -50,14 +50,14 @@ const ScheduledPublish = () => {
         date: finalDate(publishDate, publishTime),
         uid,
         contentId: id,
-        scheduleType: 'schedule'
+        scheduleType: "schedule",
       });
     } else if (!hasPublishDate && publishDate) {
       addStartDate({
         date: finalDate(publishDate, publishTime),
         uid,
         contentId: id,
-        scheduleType: 'schedule'
+        scheduleType: "schedule",
       });
       setHasPublishDate(true);
     }
@@ -67,14 +67,14 @@ const ScheduledPublish = () => {
         date: finalDate(unpublishDate, unpublishTime),
         uid,
         contentId: id,
-        scheduleType: 'depublish'
+        scheduleType: "depublish",
       });
     } else if (!hasUnpublishDate && unpublishDate) {
       addStartDate({
         date: finalDate(unpublishDate, unpublishTime),
         uid,
         contentId: id,
-        scheduleType: 'depublish'
+        scheduleType: "depublish",
       });
       setHasUnpublishDate(true);
     }
@@ -83,7 +83,7 @@ const ScheduledPublish = () => {
   const getScheduledDate = async () => {
     const data = await request(`/scheduler/${uid}/${id}`);
     data.forEach((element) => {
-      if (element.scheduleType === 'schedule') {
+      if (element.scheduleType === "schedule") {
         const currentScheduledDate = new Date(element.scheduledDatetime);
 
         setPublishDate(currentScheduledDate);
@@ -92,7 +92,7 @@ const ScheduledPublish = () => {
         setPublishTime(`${hours}:${minutes}`);
         setHasPublishDate(true);
       }
-      if (element.scheduleType === 'depublish') {
+      if (element.scheduleType === "depublish") {
         const currentScheduledDate = new Date(element.scheduledDatetime);
 
         setUnpublishDate(currentScheduledDate);
@@ -115,8 +115,8 @@ const ScheduledPublish = () => {
     ) {
       return (
         <Button fullWidth onClick={handlePublishClick}>
-          {' '}
-          Save{' '}
+          {" "}
+          Save{" "}
         </Button>
       );
     } else {
@@ -137,9 +137,11 @@ const ScheduledPublish = () => {
             onChange={setPublishDate}
             selectedDate={publishDate}
             name="datepicker"
-            clearLabel={'Clear the datepicker'}
+            clearLabel={"Clear the datepicker"}
             onClear={() => setPublishDate(undefined)}
-            selectedDateLabel={(formattedDate) => `Date picker, current is ${formattedDate}`}
+            selectedDateLabel={(formattedDate) =>
+              `Date picker, current is ${formattedDate}`
+            }
           />
         </span>
         <span className="field">
@@ -149,11 +151,11 @@ const ScheduledPublish = () => {
             aria-label="Time picker"
             disabled={false}
             error={undefined}
-            id={'tp-1'}
+            id={"tp-1"}
             onClear={() => setPublishTime(undefined)}
             onChange={setPublishTime}
             value={publishTime}
-            clearLabel={'Clear the selected time picker value'}
+            clearLabel={"Clear the selected time picker value"}
           />
         </span>
       </Box>
@@ -164,9 +166,11 @@ const ScheduledPublish = () => {
             onChange={setUnpublishDate}
             selectedDate={unpublishDate}
             name="datepicker"
-            clearLabel={'Clear the datepicker'}
+            clearLabel={"Clear the datepicker"}
             onClear={() => setUnpublishDate(undefined)}
-            selectedDateLabel={(formattedDate) => `Date picker, current is ${formattedDate}`}
+            selectedDateLabel={(formattedDate) =>
+              `Date picker, current is ${formattedDate}`
+            }
           />
         </span>
         <span className="field">
@@ -176,11 +180,11 @@ const ScheduledPublish = () => {
             aria-label="Time picker"
             disabled={false}
             error={undefined}
-            id={'tp-1'}
+            id={"tp-1"}
             onClear={() => setUnpublishTime(undefined)}
             onChange={setUnpublishTime}
             value={unpublishTime}
-            clearLabel={'Clear the selected time picker value'}
+            clearLabel={"Clear the selected time picker value"}
           />
         </span>
       </Box>

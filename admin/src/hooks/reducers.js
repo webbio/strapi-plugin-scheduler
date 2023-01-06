@@ -1,6 +1,6 @@
-import produce from 'immer';
-import pluginId from '../pluginId';
-import { CREATE_STARTDATE, UPDATE_STARTDATE } from './constants';
+import produce from "immer";
+import pluginId from "../pluginId";
+import { CREATE_STARTDATE, UPDATE_STARTDATE } from "./constants";
 
 export const initialState = {
   date: undefined,

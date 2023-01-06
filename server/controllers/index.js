@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const scheduler = require('./my-controller');
+const scheduler = require("./my-controller");
 
 module.exports = {
   scheduler,

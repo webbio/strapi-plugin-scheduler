@@ -1,8 +1,8 @@
-import { request, useNotification } from '@strapi/helper-plugin';
-import { useDispatch } from 'react-redux';
-import { useIntl } from 'react-intl';
-import getTrad from '../../utils/getTrad';
-import { CREATE_STARTDATE } from '../constants';
+import { request, useNotification } from "@strapi/helper-plugin";
+import { useDispatch } from "react-redux";
+import { useIntl } from "react-intl";
+import getTrad from "../../utils/getTrad";
+import { CREATE_STARTDATE } from "../constants";
 
 const addStartDate = async (dateData, toggleNotification, message) => {
   const scheduledDatetime = dateData.date;
@@ -10,18 +10,18 @@ const addStartDate = async (dateData, toggleNotification, message) => {
   const contentId = dateData.contentId;
   const scheduleType = dateData.scheduleType;
   const data = await request(`/scheduler/create`, {
-    method: 'POST',
+    method: "POST",
     body: {
       scheduledDatetime,
       uid,
       contentId,
-      scheduleType
-    }
+      scheduleType,
+    },
   });
 
   toggleNotification({
-    type: 'success',
-    message
+    type: "success",
+    message,
   });
   return data;
 };
@@ -34,7 +34,7 @@ const useAddStartDate = () => {
   const persistStartDate = async (dateData) => {
     const message = intl.formatMessage(
       {
-        id: getTrad(`Settings.scheduler.${dateData.scheduleType}.success`)
+        id: getTrad(`Settings.scheduler.${dateData.scheduleType}.success`),
       },
       { time: dateData.date.toLocaleString() }
     );
@@ -44,8 +44,8 @@ const useAddStartDate = () => {
       dispatch({ type: CREATE_STARTDATE, newDate });
     } catch (e) {
       toggleNotification({
-        type: 'warning',
-        message: { id: 'notification.error' }
+        type: "warning",
+        message: { id: "notification.error" },
       });
       throw e;
     }
