@@ -1,7 +1,7 @@
-import configController from "./config";
-import schedulerController from "./scheduler";
+import configController from './config';
+import schedulerController from './scheduler';
 
 export default {
-  config: configController,
-  scheduler: schedulerController,
+	config: configController,
+	scheduler: schedulerController
 };

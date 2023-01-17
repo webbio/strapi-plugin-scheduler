@@ -1,5 +1,5 @@
-import schedulerService from "./scheduler";
+import schedulerService from './scheduler';
 
 export default {
-  scheduler: schedulerService,
+	scheduler: schedulerService
 };
