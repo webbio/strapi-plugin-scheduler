@@ -1,6 +1,8 @@
 module.exports = {
   webbioSchedulerCron: {
-    rule: "*/30 * * * *",
+    options: {
+      rule: "*/30 * * * *",
+    },
     task: async ({ strapi }) => {
       const posts = await strapi.db
         .query("plugin::scheduler.scheduler")
