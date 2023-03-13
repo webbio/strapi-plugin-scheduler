@@ -23,6 +23,7 @@ const submitSchedulerData = async (event) => {
 };
 
 export default ({ strapi }: { strapi: Strapi }) => {
+  // Lifecycle hooks
   const userCreatedContentTypesWithDraftAndPublish = Object.values(
     strapi.contentTypes
   )
@@ -57,6 +58,18 @@ export default ({ strapi }: { strapi: Strapi }) => {
       ) {
         await submitSchedulerData(event);
       }
+    },
+  });
+
+  // Cron
+  strapi.cron.add({
+    scheduler: {
+      task: async ({ strapi }) => {
+        await strapi.service('plugin::scheduler.scheduler').runCronTask();
+      },
+      options: {
+        rule: '* * * * *'
+      },
     },
   });
 };
