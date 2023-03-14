@@ -1,37 +1,36 @@
 {
-  "name": "@webbio/strapi-plugin-scheduler",
-  "version": "0.1.0",
-  "description": "A plugin to publish or depublish articles in the future",
-  "strapi": {
-    "name": "scheduler",
-    "description": "A plugin to publish or depublish articles in the future",
-    "kind": "plugin"
-  },
-  "dependencies": {},
-  "author": {
-    "name": "Webbio"
-  },
-  "maintainers": [
-    {
-      "name": "Webbio"
-    }
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/webbio/strapi-plugin-scheduler.git"
-  },
-  "peerDependencies": {
-    "@strapi/strapi": "^4.0.0"
-  },
-  "engines": {
-    "node": ">=12.x. <=16.x.x",
-    "npm": ">=6.0.0"
-  },
-    "keywords": [
-    "strapi",
-    "plugin",
-    "publish",
-    "schedule"
-  ],
-  "license": "MIT"
+	"name": "@webbio/strapi-plugin-scheduler",
+	"private": false,
+	"version": "0.2.0",
+	"description": "A plugin to publish or depublish content types in the future.",
+	"strapi": {
+		"name": "scheduler",
+		"description": "A plugin to publish or depublish content types in the future.",
+		"kind": "plugin"
+	},
+	"dependencies": {
+		"@strapi/design-system": "^1.4.1",
+		"@strapi/icons": "^1.3.1"
+	},
+	"devDependencies": {
+		"typescript": "4.9.4"
+	},
+	"author": {
+		"name": "Webbio <info@webbio.nl>"
+	},
+	"maintainers": [
+		{
+			"name": "Webbio"
+		}
+	],
+	"engines": {
+		"node": ">=14.19.1 <=18.x.x",
+		"npm": ">=6.0.0"
+	},
+	"scripts": {
+		"dev": "tsc -w",
+		"build": "tsc",
+		"format": "prettier --write ."
+	},
+	"license": "MIT"
 }
