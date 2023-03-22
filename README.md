@@ -5,7 +5,7 @@ Strapi Plugin to schedule publish and depublish actions for any collection type.
 Schedule when you want to publish your content
 ![Alt Text](https://media.giphy.com/media/ziKkXCGDftGmvLs1lJ/giphy.gif)
 
-Choose the date and time of publication
+Choose the date and time of publication and choose when to archive your page
 ![Alt Text](https://media.giphy.com/media/CpFm7AC67Mkul8VTFI/giphy.gif)
 
 That's it!
