@@ -1,7 +1,15 @@
 # Strapi plugin scheduler
 
 Strapi Plugin to schedule publish and depublish actions for any collection type.
-There are a couple of steps necessary to get the plugin up and running but they will be explained down below.
+
+Schedule when you want to publish your content
+![Alt Text](https://media.giphy.com/media/ziKkXCGDftGmvLs1lJ/giphy.gif)
+
+Choose the date and time of publication
+![Alt Text](https://media.giphy.com/media/CpFm7AC67Mkul8VTFI/giphy.gif)
+
+That's it!
+![Alt Text](https://media.giphy.com/media/gvMbDw1bOhals0hI3g/giphy.gif)
 
 # Installation
 
