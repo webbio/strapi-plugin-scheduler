@@ -3,12 +3,15 @@
 Strapi Plugin to schedule publish and depublish actions for any collection type.
 
 Schedule when you want to publish your content
+
 ![Alt Text](https://media.giphy.com/media/ziKkXCGDftGmvLs1lJ/giphy.gif)
 
 Choose the date and time of publication and choose when to archive your page
+
 ![Alt Text](https://media.giphy.com/media/CpFm7AC67Mkul8VTFI/giphy.gif)
 
 That's it!
+
 ![Alt Text](https://media.giphy.com/media/gvMbDw1bOhals0hI3g/giphy.gif)
 
 # Installation
@@ -28,6 +31,27 @@ scheduler: {
 	},
 ```
 
-Now when you run your application, you will see some information is added to the sidebar. You can choose a date and time to publish or depublish your article.
+# Set initial dates
 
-<img src="./assets/showcase.png" width="200">
+Set the initial archive date and initial publish date in the plugin settings. These dates will automatically be set when creating a new page.
+
+```
+scheduler: {
+		enabled: true,
+		resolve: './src/plugins/strapi-plugin-scheduler',
+		config: {
+			'api::page.page': {
+				initialPublishAtDate: setMonth(
+					new Date(),
+					new Date().getMonth() + 1
+				).toDateString(),
+				initialArchiveAtDate: setMonth(
+					new Date(),
+					new Date().getMonth() + 3
+				).toDateString(),
+			},
+		},
+	},
+```
+
+Now when you run your application, the addon will be added to the sidebar. You can choose a date and time to publish or archive your article.
