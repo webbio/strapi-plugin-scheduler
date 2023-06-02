@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Box, Stack, Divider, Typography } from "@strapi/design-system";
 import {
-  useCMEditViewDataManager,
+  Box,
+  Stack,
+  Divider,
+  Typography,
   DateTimePicker,
-} from "@strapi/helper-plugin";
-import axios from "../../utils/axiosInstance";
+} from "@strapi/design-system";
+import { useCMEditViewDataManager } from "@strapi/helper-plugin";
+import { useFetchClient } from "@strapi/helper-plugin";
 
 const DATETIME_PICKER_STEP_SIZE = 5;
 
 const Scheduler = () => {
   const form = useCMEditViewDataManager();
+  const axios = useFetchClient();
 
   const [isLoadingConfig, setIsLoadingConfig] = useState(true);
   const [isLoadingScheduler, setIsLoadingScheduler] = useState(true);
