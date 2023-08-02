@@ -24,7 +24,7 @@
 		"@strapi/utils": "^4.12.0"
 	},
 	"devDependencies": {
-				"@strapi/typescript-utils": "^4.12.0",
+		"@strapi/typescript-utils": "^4.12.0",
 		"@types/react": "^17.0.53",
 		"@types/react-dom": "^18.0.28",
 		"@types/react-router-dom": "^5.3.3",
