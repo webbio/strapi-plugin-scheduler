@@ -4,21 +4,21 @@
  *
  */
 
-import React, { useEffect, useRef } from "react";
-import pluginId from "../../pluginId";
+import React, { useEffect, useRef } from 'react';
+import pluginId from '../../pluginId';
 
 type InitializerProps = {
-  setPlugin: (id: string) => void;
+	setPlugin: (id: string) => void;
 };
 
 const Initializer = ({ setPlugin }: InitializerProps) => {
-  const ref = useRef(setPlugin);
+	const ref = useRef(setPlugin);
 
-  useEffect(() => {
-    ref.current(pluginId);
-  }, []);
+	useEffect(() => {
+		ref.current(pluginId);
+	}, []);
 
-  return null;
+	return null;
 };
 
 export default Initializer;

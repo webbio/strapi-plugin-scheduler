@@ -1,7 +1,7 @@
-const scheduler = require("./scheduler/schema.json");
+const scheduler = require('./scheduler/schema.json');
 
 export default {
-  scheduler: {
-    schema: scheduler,
-  },
+	scheduler: {
+		schema: scheduler
+	}
 };
