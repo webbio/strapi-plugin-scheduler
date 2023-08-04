@@ -1210,7 +1210,7 @@
     semver "7.5.4"
     umzug "3.2.1"
 
-"@strapi/design-system@1.8.2":
+"@strapi/design-system@1.8.2", "@strapi/design-system@^1.8.2":
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/@strapi/design-system/-/design-system-1.8.2.tgz#8f70d7231f5a3bf43ac9e36bf903fc13f06ae746"
   integrity sha512-PBS/F9bCiNbM4hr6AY4QOR+QhxajLvtoJKLIhPfmmPCkPorT46DzvggTveJku/1bWiJmkVHhqytsKEhrvMsjHQ==
@@ -1261,7 +1261,7 @@
     plop "2.7.6"
     pluralize "8.0.0"
 
-"@strapi/helper-plugin@4.12.1":
+"@strapi/helper-plugin@4.12.1", "@strapi/helper-plugin@^4.12.0":
   version "4.12.1"
   resolved "https://registry.yarnpkg.com/@strapi/helper-plugin/-/helper-plugin-4.12.1.tgz#010fcfa9d9176e2c8ac2cba9ce0606a8b8209ead"
   integrity sha512-lCpAk5VH05fO4iaSirNIARXhPjRobSYhPvRDiKHy1UYCNaed8g7XuxuescODl01mcQGYfBD5lUYukLbIv9JbxQ==
@@ -1278,7 +1278,7 @@
     react-query "3.39.3"
     react-select "5.7.0"
 
-"@strapi/icons@1.8.2":
+"@strapi/icons@1.8.2", "@strapi/icons@^1.8.2":
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/@strapi/icons/-/icons-1.8.2.tgz#d838e6566ba67ecb9adc0fce773cf54e93a13d59"
   integrity sha512-FiSYN7bDk7B8nieXLddyRgU3xMWjOcRSL2Q7b8A+pedIDLiIpfrDnsSlzmpVpU7LtQSnkOcDlFHqEXEm7zwIvg==
@@ -1507,7 +1507,7 @@
     semver "7.5.4"
     statuses "2.0.1"
 
-"@strapi/typescript-utils@4.12.1":
+"@strapi/typescript-utils@4.12.1", "@strapi/typescript-utils@^4.12.0":
   version "4.12.1"
   resolved "https://registry.yarnpkg.com/@strapi/typescript-utils/-/typescript-utils-4.12.1.tgz#2bfcce1f44a29e8f48280fbba61feb4943630886"
   integrity sha512-ZttKBMnvbwP6JV6unq13Zy2PcDdukA+rBY6NetmpkRl9Fxr3mezU71GjGBSyisogG9OdSxQpGJssisdLsi/t2Q==
@@ -1546,7 +1546,7 @@
     aria-hidden "^1.2.3"
     react-remove-scroll "^2.5.6"
 
-"@strapi/utils@4.12.1":
+"@strapi/utils@4.12.1", "@strapi/utils@^4.12.0":
   version "4.12.1"
   resolved "https://registry.yarnpkg.com/@strapi/utils/-/utils-4.12.1.tgz#b571e37976edc0db576f6a273d3d424962a769d6"
   integrity sha512-y72JjH/6JgPK2k8Wq6z0jQS391YHAWa+7eDfV8cTWgjE6oxQsCPcfwO9aX7wQo8hWpIsizvBottrJQccYbJsoA==
@@ -2050,6 +2050,18 @@
   dependencies:
     "@webassemblyjs/ast" "1.11.6"
     "@xtuc/long" "4.2.2"
+
+"@webbio/strapi-plugin-page-builder@0.0.22":
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/@webbio/strapi-plugin-page-builder/-/strapi-plugin-page-builder-0.0.22.tgz#2c5dfc03813fc8aa72fe1430dcffa88bd0c68283"
+  integrity sha512-oRBAjzeN65/73JVCuyC7ofl4uJnPlqGss+r5YmKgySCScpLm4t+D87xdWs/amdhReY0I4IfUjjqdKEjh/I5CDA==
+  dependencies:
+    "@strapi/design-system" "^1.8.2"
+    "@strapi/helper-plugin" "^4.12.0"
+    "@strapi/icons" "^1.8.2"
+    "@strapi/typescript-utils" "^4.12.0"
+    "@strapi/utils" "^4.12.0"
+    react-select "^5.7.4"
 
 "@webpack-cli/configtest@^2.1.1":
   version "2.1.1"
@@ -7007,6 +7019,21 @@ react-select@5.7.0:
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/react-select/-/react-select-5.7.0.tgz#82921b38f1fcf1471a0b62304da01f2896cd8ce6"
   integrity sha512-lJGiMxCa3cqnUr2Jjtg9YHsaytiZqeNOKeibv6WF5zbK/fPegZ1hg3y/9P1RZVLhqBTs0PfqQLKuAACednYGhQ==
+  dependencies:
+    "@babel/runtime" "^7.12.0"
+    "@emotion/cache" "^11.4.0"
+    "@emotion/react" "^11.8.1"
+    "@floating-ui/dom" "^1.0.1"
+    "@types/react-transition-group" "^4.4.0"
+    memoize-one "^6.0.0"
+    prop-types "^15.6.0"
+    react-transition-group "^4.3.0"
+    use-isomorphic-layout-effect "^1.1.2"
+
+react-select@^5.7.4:
+  version "5.7.4"
+  resolved "https://registry.yarnpkg.com/react-select/-/react-select-5.7.4.tgz#d8cad96e7bc9d6c8e2709bdda8f4363c5dd7ea7d"
+  integrity sha512-NhuE56X+p9QDFh4BgeygHFIvJJszO1i1KSkg/JPcIJrbovyRtI+GuOEa4XzFCEpZRAEoEI8u/cAHK+jG/PgUzQ==
   dependencies:
     "@babel/runtime" "^7.12.0"
     "@emotion/cache" "^11.4.0"

@@ -6,15 +6,17 @@
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
-    "build": "strapi build",
-    "strapi": "strapi"
+    "build": "cd src/plugins/scheduler && yarn build && cd ../../.. && strapi build",
+    "strapi": "strapi",
+    "publish-now": "cd src/plugins/scheduler && npm publish --access public"
   },
   "devDependencies": {},
   "dependencies": {
     "@strapi/strapi": "4.12.1",
     "@strapi/plugin-users-permissions": "4.12.1",
     "@strapi/plugin-i18n": "4.12.1",
-    "better-sqlite3": "8.5.0"
+    "better-sqlite3": "8.5.0",
+    "@webbio/strapi-plugin-page-builder": "0.0.22"
   },
   "author": {
     "name": "A Strapi developer"
