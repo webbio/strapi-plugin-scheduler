@@ -4,8 +4,8 @@
  *
  */
 
-import React from "react";
-import { Puzzle } from "@strapi/icons";
+import React from 'react';
+import { Puzzle } from '@strapi/icons';
 
 const PluginIcon: React.VoidFunctionComponent = () => <Puzzle />;
 
