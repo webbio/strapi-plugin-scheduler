@@ -3,7 +3,10 @@
 
 	"compilerOptions": {
 		"outDir": "dist",
-		"rootDir": "."
+		"rootDir": ".",
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"module": "CommonJS"
 	},
 
 	"include": [

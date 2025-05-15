@@ -1,7 +1,7 @@
 {
 	"name": "@webbio/strapi-plugin-scheduler",
 	"private": false,
-	"version": "1.0.7",
+	"version": "1.0.8",
 	"description": "A plugin to publish or depublish content types in the future.",
 	"scripts": {
 		"develop": "tsc -p tsconfig.server.json -w",
@@ -18,13 +18,15 @@
 	},
 	"dependencies": {
 		"@strapi/design-system": "^1.8.2",
-		"@strapi/helper-plugin": "^4.12.0",
+		"@strapi/helper-plugin": "^4.12.5",
 		"@strapi/icons": "^1.8.2",
-		"@strapi/typescript-utils": "^4.12.0",
-		"@strapi/utils": "^4.12.0"
+		"@strapi/strapi": "4.12.5",
+		"@strapi/typescript-utils": "^4.12.5",
+		"@strapi/utils": "^4.12.5"
 	},
 	"devDependencies": {
-		"@strapi/typescript-utils": "^4.12.0",
+		"@strapi/typescript-utils": "^4.12.5",
+		"@types/node": "^22.15.18",
 		"@types/react": "^17.0.53",
 		"@types/react-dom": "^18.0.28",
 		"@types/react-router-dom": "^5.3.3",
@@ -36,7 +38,7 @@
 		"typescript": "5.1.6"
 	},
 	"peerDependencies": {
-		"@strapi/strapi": "^4.12.0",
+		"@strapi/strapi": "^4.12.5",
 		"react": "^17.0.0 || ^18.0.0",
 		"react-dom": "^17.0.0 || ^18.0.0",
 		"react-router-dom": "^5.3.4",
@@ -54,5 +56,6 @@
 		"node": ">=14.19.1 <=18.x.x",
 		"npm": ">=6.0.0"
 	},
-	"license": "MIT"
+	"license": "MIT",
+	"packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
