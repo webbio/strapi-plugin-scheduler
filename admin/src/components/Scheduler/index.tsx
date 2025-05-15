@@ -30,11 +30,11 @@ const Scheduler = () => {
 	}, [initialData.archiveAt, modifiedData.archiveAt]);
 
 	const updateFormValue = (name: string, value: Date | null, initialValue = false) => {
-		const stringDate = value ? value.toDateString() : null;
+		const isoDate = value ? value.toISOString() : null;
 
 		onChange(
 			{
-				target: { name, value: stringDate, type: 'string' }
+				target: { name, value: isoDate, type: 'string' }
 			},
 			initialValue
 		);

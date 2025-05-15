@@ -22,13 +22,13 @@ That's it!
 
 ```
 scheduler: {
-		enabled: true,
-		config: {
-			contentTypes: {
-				'api::page.page': {}
-			}
+	enabled: true,
+	config: {
+		contentTypes: {
+			'api::page.page': {}
 		}
-	},
+	}
+},
 ```
 
 # Set initial dates
@@ -37,21 +37,21 @@ Set the initial archive date and initial publish date in the plugin settings. Th
 
 ```
 scheduler: {
-		enabled: true,
-		resolve: './src/plugins/strapi-plugin-scheduler',
-		config: {
-			'api::page.page': {
-				initialPublishAtDate: setMonth(
-					new Date(),
-					new Date().getMonth() + 1
-				).toDateString(),
-				initialArchiveAtDate: setMonth(
-					new Date(),
-					new Date().getMonth() + 3
-				).toDateString(),
-			},
+	enabled: true,
+	resolve: './src/plugins/strapi-plugin-scheduler',
+	config: {
+		'api::page.page': {
+			initialPublishAtDate: setMonth(
+				new Date(),
+				new Date().getMonth() + 1
+			).toDateString(),
+			initialArchiveAtDate: setMonth(
+				new Date(),
+				new Date().getMonth() + 3
+			).toDateString(),
 		},
 	},
+},
 ```
 
 Now when you run your application, the addon will be added to the sidebar. You can choose a date and time to publish or archive your article.
