@@ -19,13 +19,12 @@ const Scheduler = () => {
 	const [scheduler, setScheduler] = useState<IScheduler | undefined | null>(undefined);
 
 	const publishAt = useMemo(() => {
-		const newDate = modifiedData?.publishAt ?? initialData.publishAt;
+		const newDate = modifiedData?.publishAt;
 		return newDate ? new Date(newDate) : null;
 	}, [initialData.publishAt, modifiedData.publishAt]);
 
 	const archiveAt = useMemo(() => {
-		const newDate = modifiedData?.archiveAt ?? initialData.archiveAt;
-
+		const newDate = modifiedData?.archiveAt
 		return newDate ? new Date(newDate) : null;
 	}, [initialData.archiveAt, modifiedData.archiveAt]);
 
