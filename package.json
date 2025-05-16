@@ -1,7 +1,7 @@
 {
 	"name": "@webbio/strapi-plugin-scheduler",
 	"private": false,
-	"version": "1.0.8",
+	"version": "1.1.0",
 	"description": "A plugin to publish or depublish content types in the future.",
 	"scripts": {
 		"develop": "tsc -p tsconfig.server.json -w",
