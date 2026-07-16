@@ -24,7 +24,9 @@ export default ({ strapi }: { strapi: Strapi }) => ({
 			throw new Error();
 		}
 
-		const contentTypeConfigs = strapi.plugin('scheduler').config('contentTypes');
+		const contentTypeConfigs: Record<string, IConfig> | undefined = strapi
+			.plugin('scheduler')
+			.config('contentTypes');
 
 		const contentTypeConfig = contentTypeConfigs?.[uid];
 

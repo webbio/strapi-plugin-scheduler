@@ -16,7 +16,7 @@ That's it!
 
 # Installation
 
-1. To install the plugin run `npm i @webbio/strapi-plugin-scheduler` or `yarn add @webbio/strapi-plugin-scheduler`.
+1. To install the plugin run `pnpm add @webbio/strapi-plugin-scheduler` (or `npm i @webbio/strapi-plugin-scheduler`).
 
 2. After the plugin is installed, add the plugin to the plugins.js file in your config folder.
 
