@@ -14,12 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: JIRA login
-        uses: atlassian/gajira-login@master
+        uses: atlassian/gajira-login@c22a5debd482401472b285de4f6deedf70ddbb92 # master (v3.0.1)
         env:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
       - name: Find JIRA issue code in branch name
-        uses: atlassian/gajira-find-issue-key@master
+        uses: atlassian/gajira-find-issue-key@80647a75d7e5ecffb74a5a61320388d93392a1bc # master (v3.0.1)
         with:
           string: ${{ github.head_ref }}, ${{ github.event.pull_request.title  }}, ${{ github.event.pull_request.body }}

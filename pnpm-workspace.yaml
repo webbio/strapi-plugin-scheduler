@@ -1,0 +1,29 @@
+# --- Supply-chain hardening (pnpm 11) ---
+# note: the OKR ticket text says 4320, but the Semgrep rule pnpm-minimum-release-age
+# requires 10080 — the stricter value wins.
+minimumReleaseAge: 10080 # minutes (7 days) before a newly published version may be installed
+blockExoticSubdeps: true # v11 default, made explicit: transitive deps must come from the registry
+strictDepBuilds: true # v11 default, made explicit: install fails on unreviewed build scripts
+trustPolicy: no-downgrade # refuse versions published with weaker provenance/trust than before
+trustPolicyIgnoreAfter: 525600 # skip trust checks for versions published over a year ago
+trustPolicyExclude:
+  # official vitebot security backport (2025-10-20); provenance false positive,
+  # verified during the algolia migration (OKR-1740)
+  - vite@5.4.21
+pmOnFail: download # always run the exact pnpm version pinned in packageManager
+# pins for critical audit advisories, patched within the same major
+overrides:
+  '@babel/traverse': ^7.23.2 # GHSA-67hx-6x53-jw92
+  '@casl/ability@^6.0.0': ^6.7.5 # GHSA-x9vf-53q3-cvx6
+  handlebars: ^4.7.9 # GHSA-2w6w-674q-4c4q
+  shell-quote: ^1.8.4 # GHSA-w7jw-789q-3m8p
+auditConfig:
+  ignoreGhsas:
+    # Strapi core advisory, only patched in Strapi >= 5.37.0; not fixable on v4
+    - GHSA-rjg2-95x7-8qmx
+allowBuilds:
+  '@strapi/strapi': false # postinstall is telemetry (anonymous usage data)
+  '@swc/core': true # native binding (downloads prebuilt binary for the platform)
+  core-js-pure: false # postinstall only prints a funding banner
+  esbuild: true # installs the platform-specific binary; required to function
+  sharp: true # native libvips binding; required to function
